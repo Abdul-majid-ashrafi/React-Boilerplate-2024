@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { FaMapMarker } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { Card, CardContent, Typography, Button, Divider, Box } from '@mui/material';
 
 const JobListing = ({ job }) => {
   const [showFullDescription, setShowFullDescription] = useState(false);
@@ -12,40 +13,66 @@ const JobListing = ({ job }) => {
   }
 
   return (
-    <div className='bg-white rounded-xl shadow-md relative'>
-      <div className='p-4'>
-        <div className='mb-6'>
-          <div className='text-gray-600 my-2'>{job.type}</div>
-          <h3 className='text-xl font-bold'>{job.title}</h3>
-        </div>
+    <Card sx={{ borderRadius: 2, boxShadow: 3, position: 'relative' }}>
+      <CardContent>
+        {/* Job Type and Title */}
+        <Box mb={3}>
+          <Typography variant="body2" color="textSecondary" sx={{ marginBottom: 1 }}>
+            {job.type}
+          </Typography>
+          <Typography variant="h6" fontWeight="bold">
+            {job.title}
+          </Typography>
+        </Box>
 
-        <div className='mb-5'>{description}</div>
+        {/* Job Description */}
+        <Typography variant="body1" mb={3}>
+          {description}
+        </Typography>
 
-        <button
+        {/* Show More/Less Button */}
+        <Button
           onClick={() => setShowFullDescription((prevState) => !prevState)}
-          className='text-indigo-500 mb-5 hover:text-indigo-600'
+          size="small"
+          sx={{
+            color: '#3949ab',
+            textTransform: 'none',
+            '&:hover': { color: '#303f9f' },
+            marginBottom: 2,
+          }}
         >
           {showFullDescription ? 'Less' : 'More'}
-        </button>
+        </Button>
 
-        <h3 className='text-indigo-500 mb-2'>{job.salary} / Year</h3>
+        {/* Salary */}
+        <Typography variant="body1" color="primary" mb={2}>
+          {job.salary} / Year
+        </Typography>
 
-        <div className='border border-gray-100 mb-5'></div>
+        <Divider sx={{ borderColor: '#f5f5f5', marginBottom: 3 }} />
 
-        <div className='flex flex-col lg:flex-row justify-between mb-4'>
-          <div className='text-orange-700 mb-3'>
-            <FaMapMarker className='inline text-lg mb-1 mr-1' />
-            {job.location}
-          </div>
-          <Link
+        {/* Location and Read More */}
+        <Box display="flex" flexDirection={{ xs: 'column', lg: 'row' }} justifyContent="space-between" alignItems="center">
+          <Box display="flex" alignItems="center" color="orange" mb={{ xs: 2, lg: 0 }}>
+            <FaMapMarker style={{ marginRight: '8px', fontSize: '1.2rem' }} />
+            <Typography variant="body1">{job.location}</Typography>
+          </Box>
+          <Button
+            component={Link}
             to={`/jobs/${job.id}`}
-            className='h-[36px] bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg text-center text-sm'
+            variant="contained"
+            sx={{
+              backgroundColor: '#3949ab',
+              '&:hover': { backgroundColor: '#303f9f' },
+              textTransform: 'none',
+            }}
           >
             Read More
-          </Link>
-        </div>
-      </div>
-    </div>
+          </Button>
+        </Box>
+      </CardContent>
+    </Card>
   );
 };
+
 export default JobListing;

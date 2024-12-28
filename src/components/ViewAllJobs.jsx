@@ -1,15 +1,33 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { Box, Button } from '@mui/material';
 
 const ViewAllJobs = () => {
   return (
-    <section className='m-auto max-w-lg my-10 px-6'>
-      <Link
-        to='/jobs'
-        className='block bg-black text-white text-center py-4 px-6 rounded-xl hover:bg-gray-700'
+    <Box 
+      component="section" 
+      sx={{ margin: 'auto', maxWidth: '600px', my: 4, px: 3 }}
+    >
+      <Button
+        component={Link}
+        to="/jobs"
+        variant="contained"
+        fullWidth
+        sx={{
+          backgroundColor: '#000',
+          color: '#fff',
+          py: 2,
+          borderRadius: 2,
+          textTransform: 'none',
+          '&:hover': {
+            backgroundColor: '#424242',
+          },
+        }}
       >
         View All Jobs
-      </Link>
-    </section>
+      </Button>
+    </Box>
   );
 };
+
 export default ViewAllJobs;

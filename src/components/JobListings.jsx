@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import JobListing from './JobListing';
 import Spinner from './Spinner';
-import { useSelector } from 'react-redux';
+import { Box, Container, Typography, Grid, Paper } from '@mui/material';
 
 const JobListings = ({ isHome = false }) => {
   const [loading, setLoading] = useState(true);
-  
+
   const jobs = useSelector((state) => state.jobs.list);
 
   useEffect(() => {
@@ -15,23 +16,36 @@ const JobListings = ({ isHome = false }) => {
   }, [jobs]);
 
   return (
-    <section className='bg-blue-50 px-4 py-10'>
-      <div className='container-xl lg:container m-auto'>
-        <h2 className='text-3xl font-bold text-indigo-500 mb-6 text-center'>
+    <Box sx={{ backgroundColor: '#e3f2fd', py: 10 }}>
+      <Container maxWidth="lg">
+        {/* Header */}
+        <Typography
+          variant="h4"
+          fontWeight="bold"
+          color="primary"
+          textAlign="center"
+          mb={6}
+        >
           {isHome ? 'Recent Jobs' : 'Browse Jobs'}
-        </h2>
+        </Typography>
 
+        {/* Content */}
         {loading ? (
           <Spinner loading={loading} />
         ) : (
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+          <Grid container spacing={3}>
             {jobs.map((job, idx) => (
-              <JobListing key={idx} job={job} />
+              <Grid item xs={12} sm={6} md={4} key={idx}>
+                <Paper elevation={3} sx={{ p: 2 }}>
+                  <JobListing job={job} />
+                </Paper>
+              </Grid>
             ))}
-          </div>
+          </Grid>
         )}
-      </div>
-    </section>
+      </Container>
+    </Box>
   );
 };
+
 export default JobListings;

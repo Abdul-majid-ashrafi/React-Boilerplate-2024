@@ -1,18 +1,47 @@
+import React from 'react';
+import { Box, Typography } from '@mui/material';
+
 const Hero = ({
   title = 'Become a React Dev',
   subtitle = 'Find the React job that fits your skill set',
 }) => {
   return (
-    <section className='bg-indigo-700 py-20 mb-4'>
-      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center'>
-        <div className='text-center'>
-          <h1 className='text-4xl font-extrabold text-white sm:text-5xl md:text-6xl'>
-            {title}
-          </h1>
-          <p className='my-4 text-xl text-white'>{subtitle}</p>
-        </div>
-      </div>
-    </section>
+    <Box
+      component="section"
+      sx={{
+        backgroundColor: '#3949ab',
+        py: 10,
+        mb: 4,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+      }}
+    >
+      <Box sx={{ maxWidth: '1120px', px: { xs: 2, sm: 3, lg: 4 } }}>
+        <Typography
+          variant="h2"
+          sx={{
+            fontWeight: 'bold',
+            fontSize: { xs: '2.5rem', sm: '3rem', md: '4rem' },
+            color: 'white',
+          }}
+        >
+          {title}
+        </Typography>
+        <Typography
+          variant="h6"
+          sx={{
+            mt: 2,
+            fontSize: '1.25rem',
+            color: 'white',
+          }}
+        >
+          {subtitle}
+        </Typography>
+      </Box>
+    </Box>
   );
 };
+
 export default Hero;

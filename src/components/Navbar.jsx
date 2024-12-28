@@ -1,40 +1,56 @@
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
+import { AppBar, Box, Toolbar, Button, Typography } from '@mui/material';
 
 const Navbar = () => {
-  const linkClass = ({ isActive }) =>
-    isActive
-      ? 'bg-black text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'
-      : 'text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2';
+  const linkStyle = ({ isActive }) => ({
+    textDecoration: 'none',
+    borderRadius: '4px',
+    padding: '6px 16px',
+    color: isActive ? 'white' : 'rgba(255, 255, 255, 0.7)',
+    backgroundColor: isActive ? '#000000' : 'transparent',
+    '&:hover': {
+      color: 'white',
+      backgroundColor: '#424242',
+    },
+  });
 
   return (
-    <nav className='bg-indigo-700 border-b border-indigo-500'>
-      <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8'>
-        <div className='flex h-20 items-center justify-between'>
-          <div className='flex flex-1 items-center justify-center md:items-stretch md:justify-start'>
-            <NavLink className='flex flex-shrink-0 items-center mr-4' to='/'>
-              <img className='h-10 w-auto' src={logo} alt='React Jobs' />
-              <span className='hidden md:block text-white text-2xl font-bold ml-2'>
-                React Jobs
-              </span>
-            </NavLink>
-            <div className='md:ml-auto'>
-              <div className='flex space-x-2'>
-                <NavLink to='/' className={linkClass}>
-                  Home
-                </NavLink>
-                <NavLink to='/jobs' className={linkClass}>
-                  Jobs
-                </NavLink>
-                <NavLink to='/add-job' className={linkClass}>
-                  Add Job
-                </NavLink>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <AppBar position="static" sx={{ backgroundColor: '#3949ab', borderBottom: '1px solid #303f9f' }}>
+      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', height: '80px' }}>
+        {/* Logo and title */}
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <NavLink to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+            <img src={logo} alt="React Jobs" style={{ height: '40px', marginRight: '8px' }} />
+            <Typography
+              variant="h6"
+              sx={{
+                display: { xs: 'none', md: 'block' },
+                color: 'white',
+                fontWeight: 'bold',
+              }}
+            >
+              React Jobs
+            </Typography>
+          </NavLink>
+        </Box>
+
+        {/* Navigation links */}
+        <Box sx={{ display: 'flex', gap: '8px' }}>
+          <NavLink to="/" style={linkStyle}>
+            <Button sx={{ color: 'inherit', textTransform: 'none' }}>Home</Button>
+          </NavLink>
+          <NavLink to="/jobs" style={linkStyle}>
+            <Button sx={{ color: 'inherit', textTransform: 'none' }}>Jobs</Button>
+          </NavLink>
+          <NavLink to="/add-job" style={linkStyle}>
+            <Button sx={{ color: 'inherit', textTransform: 'none' }}>Add Job</Button>
+          </NavLink>
+        </Box>
+      </Toolbar>
+    </AppBar>
   );
 };
+
 export default Navbar;

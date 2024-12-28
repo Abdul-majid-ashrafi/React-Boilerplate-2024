@@ -1,9 +1,19 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
-import { setJobs } from "../store/job-slice";
-
+import { setJobs } from '../store/job-slice';
+import {
+  Box,
+  Button,
+  Container,
+  TextField,
+  Typography,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl,
+} from '@mui/material';
 
 const AddJobPage = () => {
   const [title, setTitle] = useState('');
@@ -40,202 +50,160 @@ const AddJobPage = () => {
 
     toast.success('Job Added Successfully');
 
-    return navigate('/jobs');
+    navigate('/jobs');
   };
 
   return (
-    <section className='bg-indigo-50'>
-      <div className='container m-auto max-w-2xl py-24'>
-        <div className='bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0'>
-          <form onSubmit={submitForm}>
-            <h2 className='text-3xl text-center font-semibold mb-6'>Add Job</h2>
+    <Box sx={{ backgroundColor: '#e3f2fd', py: 6 }}>
+      <Container maxWidth="md">
+        <Box
+          component="form"
+          onSubmit={submitForm}
+          sx={{
+            backgroundColor: 'white',
+            p: 4,
+            borderRadius: 2,
+            boxShadow: 3,
+          }}
+        >
+          <Typography variant="h4" fontWeight="bold" textAlign="center" mb={4}>
+            Add Job
+          </Typography>
 
-            <div className='mb-4'>
-              <label
-                htmlFor='type'
-                className='block text-gray-700 font-bold mb-2'
-              >
-                Job Type
-              </label>
-              <select
-                id='type'
-                name='type'
-                className='border rounded w-full py-2 px-3'
-                required
-                value={type}
-                onChange={(e) => setType(e.target.value)}
-              >
-                <option value='Full-Time'>Full-Time</option>
-                <option value='Part-Time'>Part-Time</option>
-                <option value='Remote'>Remote</option>
-                <option value='Internship'>Internship</option>
-              </select>
-            </div>
+          {/* Job Type */}
+          <FormControl fullWidth sx={{ mb: 3 }}>
+            <InputLabel>Job Type</InputLabel>
+            <Select
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              required
+              label="Job Type"
+            >
+              <MenuItem value="Full-Time">Full-Time</MenuItem>
+              <MenuItem value="Part-Time">Part-Time</MenuItem>
+              <MenuItem value="Remote">Remote</MenuItem>
+              <MenuItem value="Internship">Internship</MenuItem>
+            </Select>
+          </FormControl>
 
-            <div className='mb-4'>
-              <label className='block text-gray-700 font-bold mb-2'>
-                Job Listing Name
-              </label>
-              <input
-                type='text'
-                id='title'
-                name='title'
-                className='border rounded w-full py-2 px-3 mb-2'
-                placeholder='eg. Beautiful Apartment In Miami'
-                required
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
-            </div>
-            <div className='mb-4'>
-              <label
-                htmlFor='description'
-                className='block text-gray-700 font-bold mb-2'
-              >
-                Description
-              </label>
-              <textarea
-                id='description'
-                name='description'
-                className='border rounded w-full py-2 px-3'
-                rows='4'
-                placeholder='Add any job duties, expectations, requirements, etc'
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              ></textarea>
-            </div>
+          {/* Job Listing Name */}
+          <TextField
+            label="Job Listing Name"
+            fullWidth
+            variant="outlined"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+            sx={{ mb: 3 }}
+          />
 
-            <div className='mb-4'>
-              <label
-                htmlFor='type'
-                className='block text-gray-700 font-bold mb-2'
-              >
-                Salary
-              </label>
-              <select
-                id='salary'
-                name='salary'
-                className='border rounded w-full py-2 px-3'
-                required
-                value={salary}
-                onChange={(e) => setSalary(e.target.value)}
-              >
-                <option value='Under $50K'>Under $50K</option>
-                <option value='$50K - 60K'>$50K - $60K</option>
-                <option value='$60K - 70K'>$60K - $70K</option>
-                <option value='$70K - 80K'>$70K - $80K</option>
-                <option value='$80K - 90K'>$80K - $90K</option>
-                <option value='$90K - 100K'>$90K - $100K</option>
-                <option value='$100K - 125K'>$100K - $125K</option>
-                <option value='$125K - 150K'>$125K - $150K</option>
-                <option value='$150K - 175K'>$150K - $175K</option>
-                <option value='$175K - 200K'>$175K - $200K</option>
-                <option value='Over $200K'>Over $200K</option>
-              </select>
-            </div>
+          {/* Description */}
+          <TextField
+            label="Description"
+            fullWidth
+            variant="outlined"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+            multiline
+            rows={4}
+            sx={{ mb: 3 }}
+          />
 
-            <div className='mb-4'>
-              <label className='block text-gray-700 font-bold mb-2'>
-                Location
-              </label>
-              <input
-                type='text'
-                id='location'
-                name='location'
-                className='border rounded w-full py-2 px-3 mb-2'
-                placeholder='Company Location'
-                required
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-              />
-            </div>
+          {/* Salary */}
+          <FormControl fullWidth sx={{ mb: 3 }}>
+            <InputLabel>Salary</InputLabel>
+            <Select
+              value={salary}
+              onChange={(e) => setSalary(e.target.value)}
+              required
+              label="Salary"
+            >
+              <MenuItem value="Under $50K">Under $50K</MenuItem>
+              <MenuItem value="$50K - $60K">$50K - $60K</MenuItem>
+              <MenuItem value="$60K - $70K">$60K - $70K</MenuItem>
+              <MenuItem value="$70K - $80K">$70K - $80K</MenuItem>
+              <MenuItem value="$80K - $90K">$80K - $90K</MenuItem>
+              <MenuItem value="$90K - $100K">$90K - $100K</MenuItem>
+              <MenuItem value="$100K - $125K">$100K - $125K</MenuItem>
+              <MenuItem value="$125K - $150K">$125K - $150K</MenuItem>
+              <MenuItem value="$150K - $175K">$150K - $175K</MenuItem>
+              <MenuItem value="$175K - $200K">$175K - $200K</MenuItem>
+              <MenuItem value="Over $200K">Over $200K</MenuItem>
+            </Select>
+          </FormControl>
 
-            <h3 className='text-2xl mb-5'>Company Info</h3>
+          {/* Location */}
+          <TextField
+            label="Location"
+            fullWidth
+            variant="outlined"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            required
+            sx={{ mb: 3 }}
+          />
 
-            <div className='mb-4'>
-              <label
-                htmlFor='company'
-                className='block text-gray-700 font-bold mb-2'
-              >
-                Company Name
-              </label>
-              <input
-                type='text'
-                id='company'
-                name='company'
-                className='border rounded w-full py-2 px-3'
-                placeholder='Company Name'
-                value={companyName}
-                onChange={(e) => setCompanyName(e.target.value)}
-              />
-            </div>
+          <Typography variant="h5" fontWeight="bold" mb={3}>
+            Company Info
+          </Typography>
 
-            <div className='mb-4'>
-              <label
-                htmlFor='company_description'
-                className='block text-gray-700 font-bold mb-2'
-              >
-                Company Description
-              </label>
-              <textarea
-                id='company_description'
-                name='company_description'
-                className='border rounded w-full py-2 px-3'
-                rows='4'
-                placeholder='What does your company do?'
-                value={companyDescription}
-                onChange={(e) => setCompanyDescription(e.target.value)}
-              ></textarea>
-            </div>
+          {/* Company Name */}
+          <TextField
+            label="Company Name"
+            fullWidth
+            variant="outlined"
+            value={companyName}
+            onChange={(e) => setCompanyName(e.target.value)}
+            sx={{ mb: 3 }}
+          />
 
-            <div className='mb-4'>
-              <label
-                htmlFor='contact_email'
-                className='block text-gray-700 font-bold mb-2'
-              >
-                Contact Email
-              </label>
-              <input
-                type='email'
-                id='contact_email'
-                name='contact_email'
-                className='border rounded w-full py-2 px-3'
-                placeholder='Email address for applicants'
-                required
-                value={contactEmail}
-                onChange={(e) => setContactEmail(e.target.value)}
-              />
-            </div>
-            <div className='mb-4'>
-              <label
-                htmlFor='contact_phone'
-                className='block text-gray-700 font-bold mb-2'
-              >
-                Contact Phone
-              </label>
-              <input
-                type='tel'
-                id='contact_phone'
-                name='contact_phone'
-                className='border rounded w-full py-2 px-3'
-                placeholder='Optional phone for applicants'
-                value={contactPhone}
-                onChange={(e) => setContactPhone(e.target.value)}
-              />
-            </div>
+          {/* Company Description */}
+          <TextField
+            label="Company Description"
+            fullWidth
+            variant="outlined"
+            value={companyDescription}
+            onChange={(e) => setCompanyDescription(e.target.value)}
+            multiline
+            rows={4}
+            sx={{ mb: 3 }}
+          />
 
-            <div>
-              <button
-                className='bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline'
-                type='submit'
-              >
-                Add Job
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </section>
+          {/* Contact Email */}
+          <TextField
+            label="Contact Email"
+            fullWidth
+            variant="outlined"
+            value={contactEmail}
+            onChange={(e) => setContactEmail(e.target.value)}
+            required
+            sx={{ mb: 3 }}
+          />
+
+          {/* Contact Phone */}
+          <TextField
+            label="Contact Phone"
+            fullWidth
+            variant="outlined"
+            value={contactPhone}
+            onChange={(e) => setContactPhone(e.target.value)}
+            sx={{ mb: 3 }}
+          />
+
+          {/* Submit Button */}
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            sx={{ py: 1.5, fontSize: '1rem' }}
+          >
+            Add Job
+          </Button>
+        </Box>
+      </Container>
+    </Box>
   );
 };
+
 export default AddJobPage;
