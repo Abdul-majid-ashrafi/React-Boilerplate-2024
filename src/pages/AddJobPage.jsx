@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { setJobs } from "../store/job-slice";
 
-const AddJobPage = ({ addJobSubmit }) => {
+
+const AddJobPage = () => {
   const [title, setTitle] = useState('');
   const [type, setType] = useState('Full-Time');
   const [location, setLocation] = useState('');
@@ -14,6 +17,7 @@ const AddJobPage = ({ addJobSubmit }) => {
   const [contactPhone, setContactPhone] = useState('');
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const submitForm = (e) => {
     e.preventDefault();
@@ -32,7 +36,7 @@ const AddJobPage = ({ addJobSubmit }) => {
       },
     };
 
-    addJobSubmit(newJob);
+    dispatch(setJobs([newJob]));
 
     toast.success('Job Added Successfully');
 

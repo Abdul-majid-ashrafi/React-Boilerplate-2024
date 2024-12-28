@@ -1,27 +1,18 @@
 import { useState, useEffect } from 'react';
 import JobListing from './JobListing';
 import Spinner from './Spinner';
-import localJobs from '../jobs.json';
+import { useSelector } from 'react-redux';
 
 const JobListings = ({ isHome = false }) => {
-  const [jobs, setJobs] = useState(localJobs?.jobs);
   const [loading, setLoading] = useState(true);
+  
+  const jobs = useSelector((state) => state.jobs.list);
 
   useEffect(() => {
-    const fetchJobs = async () => {
-      try {
-        const storage = localStorage.getItem("jobs") || "[]"
-        const storedJobs = JSON.parse(storage);
-        console.log(storedJobs);
-        setJobs([...jobs, ...storedJobs]);
-      } catch (error) {
-        console.log('Error fetching data', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchJobs();
-  }, []);
+    if (jobs.length) {
+      setLoading(false);
+    }
+  }, [jobs]);
 
   return (
     <section className='bg-blue-50 px-4 py-10'>
